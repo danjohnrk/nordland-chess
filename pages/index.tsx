@@ -3,13 +3,19 @@ import { getAllUsers } from "@/mockapi/userApi";
 import { MatchList } from "@/src/components/MatchList/MatchList";
 import { UserList } from "@/src/components/UserList/UserList";
 import { IMatch } from "@/src/interfaces/match";
+import AuthContext, { AuthContextProvider } from "@/stores/authContext";
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
   const [matches, setMatches] = useState<IMatch[]>();
   const { users } = getAllUsers();
+
+  const { user, login, logout } = useContext(AuthContext);
+
+  console.log(user);
 
   useEffect(() => {
     const allMatches = getAllMatches();
@@ -24,6 +30,29 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className={styles.header}>
+        <nav>
+          <ul className={styles.headerList}>
+            <li>
+              {user != null && (
+                <button className={styles.loginButton} onClick={logout}>
+                  Logg ut
+                </button>
+              )}
+              {user === null && (
+                <button className={styles.loginButton} onClick={login}>
+                  Logg inn/Registrer
+                </button>
+              )}
+            </li>
+            {user != null && (
+              <li className={styles.headerListItem}>
+                <Link href="/new-match">Registrer match</Link>
+              </li>
+            )}
+          </ul>
+        </nav>
+      </div>
       <main className={styles.main}>
         <UserList users={users} />
         {matches != null && <MatchList matches={matches} />}
