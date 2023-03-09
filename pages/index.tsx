@@ -50,6 +50,11 @@ export default function Home() {
                 <Link href="/new-match">Registrer match</Link>
               </li>
             )}
+            {user != null && (
+              <li className={styles.headerListItem}>
+                <Link href="/chessboard">Sjakkbrett</Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
