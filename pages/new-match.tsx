@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useContext } from "react";
 
 const NewMatch = () => {
-  const { user, login, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   return (
     <div className={styles.header}>
       <nav>
