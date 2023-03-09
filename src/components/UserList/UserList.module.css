@@ -1,0 +1,37 @@
+.list {
+  list-style: none;
+  width: 100%;
+
+  background-color: #404040;
+
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.listHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  background-color: #212121;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.listItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  padding: 2rem 2rem;
+  border-bottom: 1px solid #707070;
+}
+
+.listItem:hover {
+  background-color: #505050;
+}
+
+@media (min-width: 750px) {
+  .list {
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+}

@@ -1,0 +1,60 @@
+.list {
+  list-style: none;
+  width: 100%;
+
+  background-color: #404040;
+
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+  max-height: 60rem;
+  overflow: scroll;
+
+  margin-top: 2rem;
+}
+
+.listHeader {
+  display: grid;
+  grid-template-columns: 60% 15% 25%;
+
+  background-color: #212121;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.listItem {
+  display: grid;
+  grid-template-columns: 60% 15% 25%;
+
+  padding: 2rem 2rem;
+  border-bottom: 1px solid #707070;
+}
+
+.listItem:hover {
+  background-color: #505050;
+}
+
+.listHeaderDate {
+  justify-self: center;
+}
+
+.listItemTime {
+  justify-self: center;
+}
+
+.winnerLogo {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (min-width: 750px) {
+  .winnerLogo {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .list {
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+}
