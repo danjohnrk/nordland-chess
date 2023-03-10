@@ -55,6 +55,13 @@ export default function Home() {
                 <Link href="/chessboard">Sjakkbrett</Link>
               </li>
             )}
+            {user != null && (
+              <li className={styles.headerListItem}>
+                <a href="/display" target="_blank">
+                  Visning
+                </a>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

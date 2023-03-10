@@ -1,0 +1,132 @@
+{
+  "standing": [
+    {
+      "piece": "white-rook",
+      "position": "a1"
+    },
+    {
+      "piece": "white-knight",
+      "position": "b1"
+    },
+    {
+      "piece": "white-bishop",
+      "position": "c1"
+    },
+    {
+      "piece": "white-queen",
+      "position": "d1"
+    },
+    {
+      "piece": "white-king",
+      "position": "e1"
+    },
+    {
+      "piece": "white-bishop",
+      "position": "f1"
+    },
+    {
+      "piece": "white-knight",
+      "position": "g1"
+    },
+    {
+      "piece": "white-rook",
+      "position": "h1"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "a2"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "b2"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "c2"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "d2"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "e2"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "f2"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "g2"
+    },
+    {
+      "piece": "white-pawn",
+      "position": "h2"
+    },
+    {
+      "piece": "black-rook",
+      "position": "a8"
+    },
+    {
+      "piece": "black-knight",
+      "position": "b8"
+    },
+    {
+      "piece": "black-bishop",
+      "position": "c8"
+    },
+    {
+      "piece": "black-queen",
+      "position": "d8"
+    },
+    {
+      "piece": "black-king",
+      "position": "e8"
+    },
+    {
+      "piece": "black-bishop",
+      "position": "f8"
+    },
+    {
+      "piece": "black-knight",
+      "position": "g8"
+    },
+    {
+      "piece": "black-rook",
+      "position": "h8"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "a7"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "b7"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "c7"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "d7"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "e7"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "f7"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "g7"
+    },
+    {
+      "piece": "black-pawn",
+      "position": "h7"
+    }
+  ]
+}
