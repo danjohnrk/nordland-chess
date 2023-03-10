@@ -5,13 +5,21 @@ export const Chessboard = () => {
   const [movingPiece, setMovingPiece] = useState<EventTarget | null>(null);
   return (
     <div className={styles.chessboardContainer}>
-      <div className={styles.blackBox}>
+      <div
+        className={styles.blackBox}
+        onDragOver={(event) => {
+          allowDrop(event);
+        }}
+        onDrop={(event) => {
+          setMovingPiece(null);
+          drop({ ev: event, movingPiece: movingPiece });
+        }}
+      >
         <span
           className={styles.blackChessPiece}
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♜
@@ -21,7 +29,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♞
@@ -31,7 +38,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♝
@@ -41,7 +47,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♛
@@ -51,7 +56,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♚
@@ -61,7 +65,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♝
@@ -71,7 +74,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♞
@@ -81,7 +83,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♜
@@ -91,7 +92,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -101,7 +101,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -111,7 +110,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -121,7 +119,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -131,7 +128,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -141,7 +137,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -151,7 +146,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -161,7 +155,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -816,13 +809,21 @@ export const Chessboard = () => {
           }}
         ></div>
       </div>
-      <div className={styles.whiteBox}>
+      <div
+        className={styles.whiteBox}
+        onDragOver={(event) => {
+          allowDrop(event);
+        }}
+        onDrop={(event) => {
+          setMovingPiece(null);
+          drop({ ev: event, movingPiece: movingPiece });
+        }}
+      >
         <span
           className={styles.whiteChessPiece}
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♜
@@ -832,7 +833,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♞
@@ -842,7 +842,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♝
@@ -852,7 +851,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♛
@@ -862,7 +860,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♚
@@ -872,7 +869,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♝
@@ -882,7 +878,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♞
@@ -892,7 +887,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♜
@@ -902,7 +896,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -912,7 +905,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -922,7 +914,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -932,7 +923,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -942,7 +932,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -952,7 +941,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -962,7 +950,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -972,7 +959,6 @@ export const Chessboard = () => {
           draggable={true}
           onDragStart={(event) => {
             setMovingPiece(event.target);
-            drag(event);
           }}
         >
           ♟︎
@@ -982,16 +968,8 @@ export const Chessboard = () => {
   );
 };
 
-const test = () => {
-  return <div>HELLOE</div>;
-};
-
 function allowDrop(ev: any) {
   ev.preventDefault();
-}
-
-function drag(ev: any) {
-  ev.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop({ ev, movingPiece }: { ev: any; movingPiece: any }) {
@@ -999,8 +977,5 @@ function drop({ ev, movingPiece }: { ev: any; movingPiece: any }) {
     return;
   }
   ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  console.log(ev.target);
-  console.log(movingPiece);
   ev.target.appendChild(movingPiece);
 }
