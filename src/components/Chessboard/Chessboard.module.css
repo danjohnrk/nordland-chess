@@ -69,3 +69,13 @@
   color: white;
   font-size: 10vw;
 }
+
+@media (min-width: 750px) {
+  .blackChessPiece {
+    font-size: 10rem;
+  }
+
+  .whiteChessPiece {
+    font-size: 10rem;
+  }
+}
