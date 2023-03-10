@@ -1,3 +1,27 @@
+.main {
+  padding: 1rem;
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.leftSide {
+  padding: 8rem 30rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.middle {
+  padding: 8rem 0em;
+}
+
+.rightSide {
+  padding: 8rem 16rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .chessboard {
   border: 1px solid black;
   margin: 1rem;
