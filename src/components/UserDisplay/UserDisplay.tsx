@@ -13,13 +13,11 @@ export const UserDisplay = (props: IProps) => {
       <ul>
         <li>
           <h3>Fult navn: </h3>
-          <span>
-            {user.name} {user.surname}
-          </span>
+          <span>{user.name}</span>
         </li>
         <li>
           <h3>Seier: </h3>
-          <span>{user.wins}</span>
+          <span>{user.victories}</span>
         </li>
         <li>
           <h3>Tap: </h3>
@@ -27,7 +25,7 @@ export const UserDisplay = (props: IProps) => {
         </li>
         <li>
           <h3>Remi: </h3>
-          <span>{user.remises}</span>
+          <span>{user.draws}</span>
         </li>
       </ul>
     </div>

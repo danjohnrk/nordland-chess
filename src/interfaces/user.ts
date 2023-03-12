@@ -1,9 +1,8 @@
 export interface IUser {
-  id: string;
+  netlifyId: string;
   name: string;
-  surname: string;
-  ranking: number;
-  wins: number;
+  rating: number;
+  victories: number;
   losses: number;
-  remises: number;
+  draws: number;
 }

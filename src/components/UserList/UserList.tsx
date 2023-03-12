@@ -7,30 +7,28 @@ interface IProps {
 
 export const UserList = (props: IProps) => {
   const { users } = props;
-  const usersSortByRanking = users.sort((a, b) => b.ranking - a.ranking);
+  const usersSortByRanking = users.sort((a, b) => b.rating - a.rating);
 
   return (
     <ul className={styles.list}>
       <li className={styles.listHeader}>
-        <span>Pl</span>
-        <span>Navn</span>
-        <span>Etternavn</span>
         <span>Ranking</span>
+        <span>Navn</span>
+        <span>ELO</span>
         <span>Seier</span>
         <span>Tap</span>
         <span>Remi</span>
       </li>
       {usersSortByRanking.map((user, index) => {
         return (
-          <li key={user.id}>
-            <a className={styles.listItem} href={`/user/${user.id}`}>
+          <li key={user.netlifyId}>
+            <a className={styles.listItem} href={`/user/${user.netlifyId}`}>
               <span>{`#${index + 1}`}</span>
               <span>{user.name} </span>
-              <span>{user.surname} </span>
-              <span>{user.ranking} </span>
-              <span>{user.wins} </span>
+              <span>{user.rating} </span>
+              <span>{user.victories} </span>
               <span>{user.losses} </span>
-              <span>{user.remises} </span>
+              <span>{user.draws} </span>
             </a>
           </li>
         );

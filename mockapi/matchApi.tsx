@@ -11,17 +11,17 @@ export const getAllMatches = (): IMatch[] => {
 function createMatchListWithUsers(matches: IApiMatch[]) {
   const processedMatches: IMatch[] = [];
 
-  matches.forEach((currentMatch) => {
-    const blackPlayer: IUser = getUser(currentMatch.blackPlayer);
-    const whitePLayer: IUser = getUser(currentMatch.whitePlayer);
-    const match: IMatch = {
-      time: currentMatch.time,
-      whitePlayer: whitePLayer,
-      blackPlayer: blackPlayer,
-      result: currentMatch.result,
-    };
-    processedMatches.push(match);
-  });
+  //   matches.forEach((currentMatch) => {
+  //     const blackPlayer: IUser = getUser(currentMatch.blackPlayer);
+  //     const whitePLayer: IUser = getUser(currentMatch.whitePlayer);
+  //     const match: IMatch = {
+  //       time: currentMatch.time,
+  //       whitePlayer: whitePLayer,
+  //       blackPlayer: blackPlayer,
+  //       result: currentMatch.result,
+  //     };
+  //     processedMatches.push(match);
+  //   });
 
   return processedMatches;
 }

@@ -17,17 +17,15 @@ export const MatchList = (props: IProps) => {
         <span>Resultat</span>
         <span className={styles.listHeaderDate}>Dato</span>
       </li>
-      {matches.map((match) => {
+      {matches.map((match, index) => {
         return (
-          <li key={match.time}>
+          <li key={index}>
             <a className={styles.listItem}>
               <div>
                 <div>
                   <span>Hvit: </span>
-                  <span>
-                    {match.whitePlayer.name} {match.whitePlayer.surname}
-                  </span>
-                  <span>{` (${match.whitePlayer.ranking})`}</span>
+                  <span>{match.playerWhite.name}</span>
+                  <span>{` (${match.playerWhite.rating})`}</span>
                   {match.result === "white" && (
                     <Image
                       src="/winner.svg"
@@ -41,10 +39,8 @@ export const MatchList = (props: IProps) => {
                 </div>
                 <div>
                   <span>Sort: </span>
-                  <span>
-                    {match.blackPlayer.name} {match.blackPlayer.surname}
-                  </span>
-                  <span>{` (${match.blackPlayer.ranking})`}</span>
+                  <span>{match.playerBlack.name}</span>
+                  <span>{` (${match.playerBlack.rating})`}</span>
                   {match.result === "black" && (
                     <Image
                       src="/winner.svg"
@@ -59,7 +55,7 @@ export const MatchList = (props: IProps) => {
               </div>
               <span>{translateResult(match.result)}</span>
               <span className={styles.listItemTime}>
-                {createTimeLabel(match.time)}
+                {createTimeLabel("2023-02-20T08:13:00+01:00")}
               </span>
             </a>
           </li>

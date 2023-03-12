@@ -1,26 +1,59 @@
 import { getAllMatches } from "@/mockapi/matchApi";
 import { getAllUsers } from "@/mockapi/userApi";
+import { LoadingSpinner } from "@/src/components/LoadingSpinner/LoadingSpinner";
 import { MatchList } from "@/src/components/MatchList/MatchList";
 import { UserList } from "@/src/components/UserList/UserList";
-import { IMatch } from "@/src/interfaces/match";
-import AuthContext, { AuthContextProvider } from "@/stores/authContext";
+import AuthContext from "@/stores/authContext";
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
 export default function Home() {
-  const [matches, setMatches] = useState<IMatch[]>();
-  const { users } = getAllUsers();
+  const { user, users, login, logout, loadingUsers } = useContext(AuthContext);
 
-  const { user, login, logout } = useContext(AuthContext);
+  const [userIsActive, setUserIsActive] = useState(false);
+  const [activating, setActivating] = useState(false);
 
-  console.log(user);
+  const {
+    isLoading: matchLoading,
+    error,
+    data: matches,
+  } = useQuery("matchData", () =>
+    fetch(
+      "http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/match/all"
+    ).then((res) => res.json())
+  );
 
   useEffect(() => {
-    const allMatches = getAllMatches();
-    setMatches(allMatches);
-  }, []);
+    if (users != null && user != null) {
+      users.forEach((currentUser) => {
+        if (currentUser.netlifyId === user.id) {
+          setUserIsActive(true);
+        }
+      });
+    }
+  }, [users, user]);
+
+  const activateUser = () => {
+    setActivating(true);
+
+    setTimeout(() => {
+      fetch("http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          netlifyId: user.id,
+          name: user.user_metadata.full_name,
+        }),
+      }).then((data) => {
+        location.reload();
+      });
+    }, 3000);
+  };
 
   return (
     <>
@@ -33,6 +66,13 @@ export default function Home() {
       <div className={styles.header}>
         <nav>
           <ul className={styles.headerList}>
+            {user != null && (
+              <li>
+                <Link href="/delete-user" className={styles.username}>
+                  {user.user_metadata.full_name}
+                </Link>
+              </li>
+            )}
             <li>
               {user != null && (
                 <button className={styles.loginButton} onClick={logout}>
@@ -45,17 +85,17 @@ export default function Home() {
                 </button>
               )}
             </li>
-            {user != null && (
+            {user != null && userIsActive === true && (
               <li className={styles.headerListItem}>
                 <Link href="/new-match">Registrer match</Link>
               </li>
             )}
-            {user != null && (
+            {user != null && userIsActive === true && (
               <li className={styles.headerListItem}>
                 <Link href="/chessboard">Sjakkbrett</Link>
               </li>
             )}
-            {user != null && (
+            {user != null && userIsActive === true && (
               <li className={styles.headerListItem}>
                 <a href="/display" target="_blank">
                   Visning
@@ -66,8 +106,35 @@ export default function Home() {
         </nav>
       </div>
       <main className={styles.main}>
-        <UserList users={users} />
-        {matches != null && <MatchList matches={matches} />}
+        {loadingUsers === false && (
+          <>
+            {(userIsActive === true || user == null) && (
+              <>
+                {users != null && <UserList users={users} />}
+                {matches != null && matchLoading === false && (
+                  <MatchList matches={matches} />
+                )}
+              </>
+            )}
+            {userIsActive === false && user != null && activating === false && (
+              <div className={styles.welcomeScreen}>
+                <h2>Velkommen!</h2>
+                <button
+                  className={styles.activateButton}
+                  onClick={activateUser}
+                >
+                  Aktiver brukeren din her!
+                </button>
+              </div>
+            )}
+            {activating === true && (
+              <div className={styles.activatingScreen}>
+                <h2>Aktiverer bruker...</h2>
+                <LoadingSpinner />
+              </div>
+            )}
+          </>
+        )}
       </main>
     </>
   );

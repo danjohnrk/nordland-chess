@@ -9,8 +9,28 @@ export interface IApiMatch {
 }
 
 export interface IMatch {
-  time: string;
-  whitePlayer: IUser;
-  blackPlayer: IUser;
+  time: {};
+  playerWhite: {
+    netlifyId: string;
+    name: string;
+    rating: number;
+    victories: number;
+    losses: number;
+    draws: number;
+  };
+  playerBlack: {
+    netlifyId: string;
+    name: string;
+    rating: number;
+    victories: number;
+    losses: number;
+    draws: number;
+  };
+
   result: string;
+}
+export interface IApiRegisterMatch {
+  whitePlayer: string | null;
+  blackPlayer: string | null;
+  result: string | null;
 }

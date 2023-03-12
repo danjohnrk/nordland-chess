@@ -1,7 +1,6 @@
 import { getAllMatches } from "@/mockapi/matchApi";
-import { getAllUsers } from "@/mockapi/userApi";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MatchList } from "../MatchList/MatchList";
 import { UserList } from "../UserList/UserList";
 import styles from "./DisplayScreen.module.css";
@@ -9,16 +8,31 @@ import { IMatch } from "@/src/interfaces/match";
 import { DisplayScreen__Chessboard } from "./DisplayScreen__Chessboard";
 import { getBoardStanding } from "@/mockapi/boardstandingApi";
 import { TwitterFeed } from "../TwitterFeed/TwitterFeed";
+import AuthContext from "@/stores/authContext";
+import { useQuery } from "react-query";
 
 export const DisplayScreen = () => {
-  const [matches, setMatches] = useState<IMatch[]>();
-  const { users } = getAllUsers();
-  const { standing } = getBoardStanding();
+  //const { standing } = getBoardStanding();
+  const { users } = useContext(AuthContext);
 
-  useEffect(() => {
-    const allMatches = getAllMatches();
-    setMatches(allMatches);
-  }, []);
+  const {
+    isLoading: matchLoading,
+    error,
+    data: matches,
+  } = useQuery("matchData", () =>
+    fetch(
+      "http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/match/all"
+    ).then((res) => res.json())
+  );
+
+  const { isLoading: standingLoading, data: standingData } = useQuery(
+    "standingData",
+    () =>
+      fetch(
+        "http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/chess_display"
+      ).then((res) => res.json())
+  );
+
   return (
     <>
       <Head>
@@ -34,12 +48,16 @@ export const DisplayScreen = () => {
           </div>
         </div>
         <div className={styles.middle}>
-          <UserList users={users} />
-          {matches != null && <MatchList matches={matches} />}
+          {users != null && <UserList users={users} />}
+          {matchLoading === false && matches != null && (
+            <MatchList matches={matches} />
+          )}
         </div>
         <div className={styles.rightSide}>
           <div className={styles.chessBoardContainer}>
-            <DisplayScreen__Chessboard standing={standing} />
+            {standingLoading === false && standingData != null && (
+              <DisplayScreen__Chessboard standing={standingData.standing} />
+            )}
           </div>
         </div>
       </main>
