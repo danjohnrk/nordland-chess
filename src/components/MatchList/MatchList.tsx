@@ -10,8 +10,6 @@ interface IProps {
 export const MatchList = (props: IProps) => {
   const { matches } = props;
 
-  console.log("matches: ", matches);
-
   return (
     <ul className={styles.list}>
       <li className={styles.listHeader}>

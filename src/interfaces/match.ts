@@ -9,7 +9,7 @@ export interface IApiMatch {
 }
 
 export interface IMatch {
-  time: {};
+  time: string;
   playerWhite: {
     netlifyId: string;
     name: string;

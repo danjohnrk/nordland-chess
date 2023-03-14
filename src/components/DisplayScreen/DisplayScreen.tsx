@@ -41,8 +41,6 @@ export const DisplayScreen = () => {
       )
   );
 
-  console.log(funFactData);
-
   return (
     <>
       <Head>
