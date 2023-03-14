@@ -20,18 +20,28 @@ export const DisplayScreen = () => {
     error,
     data: matches,
   } = useQuery("matchData", () =>
-    fetch(
-      "http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/match/all"
-    ).then((res) => res.json())
+    fetch("https://nrk-chess-api.onrender.com/match/all").then((res) =>
+      res.json()
+    )
   );
 
   const { isLoading: standingLoading, data: standingData } = useQuery(
     "standingData",
     () =>
-      fetch(
-        "http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/chess_display"
-      ).then((res) => res.json())
+      fetch("https://nrk-chess-api.onrender.com/chess_display").then((res) =>
+        res.json()
+      )
   );
+
+  const { isLoading: funFactLoading, data: funFactData } = useQuery(
+    "funFact",
+    () =>
+      fetch("https://nrk-chess-api.onrender.com/fun_fact/chess").then((res) =>
+        res.json()
+      )
+  );
+
+  console.log(funFactData);
 
   return (
     <>
@@ -59,6 +69,16 @@ export const DisplayScreen = () => {
               <DisplayScreen__Chessboard standing={standingData.standing} />
             )}
           </div>
+          {funFactLoading === false && funFactData != null && (
+            <div className={styles.funfactBox}>
+              <div className={styles.funfactBoxTitle}>
+                <h3>Fun Fact</h3>
+              </div>
+              <span className={styles.funfactBoxText}>
+                {funFactData.funFact}
+              </span>
+            </div>
+          )}
         </div>
       </main>
     </>

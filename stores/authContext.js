@@ -23,9 +23,9 @@ export const AuthContextProvider = ({ children }) => {
     error,
     data: userData,
   } = useQuery("userData", () =>
-    fetch(
-      "http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/user/all"
-    ).then((res) => res.json())
+    fetch("https://nrk-chess-api.onrender.com/user/all").then((res) =>
+      res.json()
+    )
   );
 
   useEffect(() => {

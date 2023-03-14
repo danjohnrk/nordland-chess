@@ -18,11 +18,9 @@ export const Chessboard = (props: IProps) => {
 
   const storeCurrentStanding = () => {
     fetch(
-      `http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/chess_display?json=${JSON.stringify(
-        {
-          standing: currentStanding,
-        }
-      )}`,
+      `https://nrk-chess-api.onrender.com/chess_display?json=${JSON.stringify({
+        standing: currentStanding,
+      })}`,
       {
         method: "POST",
         headers: {

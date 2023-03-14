@@ -4,22 +4,34 @@
 
   display: grid;
   grid-template-columns: 33.3% 33.3% 33.3%;
+  justify-items: center;
 }
 
 .leftSide {
-  padding: 8rem 30rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
+
+  padding: 10rem 25rem;
 }
 
 .middle {
-  padding: 8rem 0em;
+  width: 100%;
+
+  padding: 10rem 20rem;
 }
 
 .rightSide {
-  padding: 8rem 16rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  padding: 10rem 25rem;
+}
+
+.chessBoardContainer {
+  min-width: 750px;
 }
 
 .chessboard {
@@ -78,6 +90,30 @@
 .boardPiecesPlaceholder {
   display: none;
 }
+
+.funfactBox {
+  background-color: #404040;
+  margin-top: 10rem;
+  border-radius: 1rem;
+  padding: 2rem;
+
+  max-width: 750px;
+}
+
+.funfactBoxTitle {
+  background-color: #212121;
+  font-size: 6rem;
+  border-radius: 1rem;
+
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 4rem;
+}
+
+.funfactBoxText {
+  font-size: 4rem;
+}
+
 @media (min-width: 750px) {
   .blackChessPiece {
     font-size: 10rem;

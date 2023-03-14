@@ -21,9 +21,9 @@ export default function Home() {
     error,
     data: matches,
   } = useQuery("matchData", () =>
-    fetch(
-      "http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/match/all"
-    ).then((res) => res.json())
+    fetch("https://nrk-chess-api.onrender.com/match/all").then((res) =>
+      res.json()
+    )
   );
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function Home() {
     setActivating(true);
 
     setTimeout(() => {
-      fetch("http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/user", {
+      fetch("https://nrk-chess-api.onrender.com/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

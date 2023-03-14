@@ -12,15 +12,12 @@ const DeleteUser = () => {
   const deactivatingUser = () => {
     setDeactivating(true);
     setTimeout(() => {
-      fetch(
-        `http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/user?netlifyId=${user.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then(() => {
+      fetch(`https://nrk-chess-api.onrender.com/user?netlifyId=${user.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() => {
         logout();
         router.push("/");
       });
@@ -63,7 +60,7 @@ const DeleteUser = () => {
 
         {deactivating === true && (
           <div>
-            <h2>Aktiverer bruker...</h2>
+            <h2>Deaktiverer bruker...</h2>
             <LoadingSpinner />
           </div>
         )}

@@ -10,6 +10,8 @@ interface IProps {
 export const MatchList = (props: IProps) => {
   const { matches } = props;
 
+  console.log("matches: ", matches);
+
   return (
     <ul className={styles.list}>
       <li className={styles.listHeader}>
@@ -55,7 +57,7 @@ export const MatchList = (props: IProps) => {
               </div>
               <span>{translateResult(match.result)}</span>
               <span className={styles.listItemTime}>
-                {createTimeLabel("2023-02-20T08:13:00+01:00")}
+                {createTimeLabel(match.time)}
               </span>
             </a>
           </li>

@@ -30,7 +30,7 @@ export const MatchRegister = () => {
     ) {
       return;
     }
-    fetch("http://ec2-16-171-34-21.eu-north-1.compute.amazonaws.com/match", {
+    fetch("https://nrk-chess-api.onrender.com/match", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
