@@ -10,6 +10,10 @@ interface IProps {
 export const MatchList = (props: IProps) => {
   const { matches } = props;
 
+  matches.sort((a, b) => {
+    return new Date(b.time).valueOf() - new Date(a.time).valueOf();
+  });
+
   return (
     <ul className={styles.list}>
       <li className={styles.listHeader}>

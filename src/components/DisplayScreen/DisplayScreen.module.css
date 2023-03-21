@@ -18,7 +18,7 @@
 .middle {
   width: 100%;
 
-  padding: 10rem 20rem;
+  padding: 10rem 0;
 }
 
 .rightSide {
@@ -27,7 +27,7 @@
   align-items: center;
   width: 100%;
 
-  padding: 10rem 25rem;
+  padding: 10rem 0rem;
 }
 
 .chessBoardContainer {
