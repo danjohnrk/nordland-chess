@@ -16,9 +16,7 @@ export const MatchRegister = () => {
     "white" | "black" | null
   >(null);
   const [opponentId, setOpponentId] = useState<string | null>(null);
-  const [result, setResult] = useState<"white" | "black" | "remis" | null>(
-    null
-  );
+  const [result, setResult] = useState<"white" | "black" | "draw" | null>(null);
 
   const { user, users } = useContext(AuthContext);
 
@@ -137,11 +135,11 @@ export const MatchRegister = () => {
               Remi
               <button
                 className={styles.resultButtonRemis}
-                data-active={result === "remis"}
+                data-active={result === "draw"}
                 onClick={() => {
                   const newMatch = match;
-                  newMatch.result = "remis";
-                  setResult("remis");
+                  newMatch.result = "draw";
+                  setResult("draw");
                 }}
               ></button>
             </label>
