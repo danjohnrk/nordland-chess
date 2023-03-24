@@ -30,6 +30,13 @@
   padding: 10rem 0rem;
 }
 
+.matchListContainer {
+  max-height: 1200px;
+  overflow: scroll;
+
+  border-radius: 1rem;
+}
+
 .chessBoardContainer {
   min-width: 750px;
 }
@@ -59,6 +66,44 @@
   content: "";
   display: block;
   padding-bottom: 100%;
+}
+
+.qrCodeBox {
+  background-color: #404040;
+  border-radius: 1rem;
+  padding: 2rem;
+
+  max-width: 750px;
+  margin-bottom: 2rem;
+}
+
+.qrCodeBoxTitle {
+  background-color: #212121;
+  color: white;
+  font-size: 6rem;
+  border-radius: 1rem;
+
+  text-align: center;
+  padding: 1rem;
+}
+
+.qrCode {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+}
+
+.qrCodeImage {
+  padding: 20px;
+  background-color: white;
+  border-radius: 2rem;
+}
+
+.twitterFeedContainer {
+  max-height: 950px;
+  overflow: scroll;
+  border-radius: 4rem;
 }
 
 .blackSquare {
@@ -102,6 +147,7 @@
 
 .funfactBoxTitle {
   background-color: #212121;
+  color: white;
   font-size: 6rem;
   border-radius: 1rem;
 
@@ -112,6 +158,41 @@
 
 .funfactBoxText {
   font-size: 4rem;
+}
+
+.houseRulesBox {
+  background-color: #404040;
+  margin-top: 10rem;
+  border-radius: 1rem;
+  padding: 2rem;
+
+  max-width: 750px;
+}
+
+.houseRulesBoxTitle {
+  background-color: #212121;
+  color: white;
+  font-size: 6rem;
+  border-radius: 1rem;
+
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 4rem;
+}
+
+.houseRulesList {
+  list-style: none;
+  font-size: 4rem;
+}
+
+.houseRule {
+  display: flex;
+  padding: 1rem 0;
+}
+
+.houseRulesPoint {
+  padding-right: 2rem;
+  display: flex;
 }
 
 @media (min-width: 750px) {

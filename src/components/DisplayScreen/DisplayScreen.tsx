@@ -10,6 +10,7 @@ import { getBoardStanding } from "@/mockapi/boardstandingApi";
 import { TwitterFeed } from "../TwitterFeed/TwitterFeed";
 import AuthContext from "@/stores/authContext";
 import { useQuery } from "react-query";
+import Image from "next/image";
 
 export const DisplayScreen = () => {
   //const { standing } = getBoardStanding();
@@ -51,6 +52,20 @@ export const DisplayScreen = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.leftSide}>
+          <div className={styles.qrCodeBox}>
+            <div className={styles.qrCodeBoxTitle}>
+              <h3>Besøk siden</h3>
+            </div>
+            <div className={styles.qrCode}>
+              <Image
+                className={styles.qrCodeImage}
+                src="/qr-code.png"
+                alt="qr-code"
+                width={500}
+                height={500}
+              />
+            </div>
+          </div>
           <div className={styles.twitterFeedContainer}>
             <TwitterFeed />
           </div>
@@ -58,7 +73,9 @@ export const DisplayScreen = () => {
         <div className={styles.middle}>
           {users != null && <UserList users={users} />}
           {matchLoading === false && matches != null && (
-            <MatchList matches={matches} />
+            <div className={styles.matchListContainer}>
+              <MatchList matches={matches} />
+            </div>
           )}
         </div>
         <div className={styles.rightSide}>
@@ -77,6 +94,32 @@ export const DisplayScreen = () => {
               </span>
             </div>
           )}
+          <div className={styles.houseRulesBox}>
+            <div className={styles.houseRulesBoxTitle}>
+              <h3>Husregler</h3>
+            </div>
+            <ul className={styles.houseRulesList}>
+              <li className={styles.houseRule}>
+                <span className={styles.houseRulesPoint}>♛</span>
+                <span className={styles.houseRulesText}>
+                  Spilleformat: 3+2 blitz.
+                </span>
+              </li>
+              <li className={styles.houseRule}>
+                <span className={styles.houseRulesPoint}>♜</span>
+                <span className={styles.houseRulesText}>
+                  Taper av siste inbyrdes parti er hvit. Har man ikke møttes
+                  tidligere avgjøres det av spillerenes rating.
+                </span>
+              </li>
+              <li className={styles.houseRule}>
+                <span className={styles.houseRulesPoint}>♞</span>
+                <span className={styles.houseRulesText}>
+                  Har du ikke spilt sjakk i dag kan du ikke avslå en udfordring.
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </main>
     </>
