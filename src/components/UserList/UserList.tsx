@@ -12,7 +12,7 @@ export const UserList = (props: IProps) => {
   return (
     <ul className={styles.list}>
       <li className={styles.listHeader}>
-        <span>Ranking</span>
+        <span>Rank</span>
         <span>Navn</span>
         <span>ELO</span>
         <span>Seier</span>

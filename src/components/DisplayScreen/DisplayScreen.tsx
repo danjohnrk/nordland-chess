@@ -107,7 +107,7 @@ export const DisplayScreen = () => {
               <li className={styles.houseRule}>
                 <span className={styles.houseRulesPoint}>♛</span>
                 <span className={styles.houseRulesText}>
-                  Spilleformat: 3+2 blitz.
+                  Spilleformat: 3 minutt + 2 sekund.
                 </span>
               </li>
               <li className={styles.houseRule}>
@@ -120,7 +120,7 @@ export const DisplayScreen = () => {
               <li className={styles.houseRule}>
                 <span className={styles.houseRulesPoint}>♞</span>
                 <span className={styles.houseRulesText}>
-                  Har du ikke spilt sjakk i dag kan du ikke avslå en udfordring.
+                  Har du ikke spilt sjakk i dag kan du ikke avslå en utfordring.
                 </span>
               </li>
             </ul>
