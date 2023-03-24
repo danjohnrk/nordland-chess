@@ -8,7 +8,6 @@ export const TwitterFeed = () => {
         sourceType="profile"
         screenName="Sjakkforbundet"
         options={{ theme: "dark" }}
-        theme="dark"
         noHeader={true}
         tweetLimit={5}
       />

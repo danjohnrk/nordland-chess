@@ -66,8 +66,13 @@ export const DisplayScreen = () => {
               />
             </div>
           </div>
-          <div className={styles.twitterFeedContainer}>
-            <TwitterFeed />
+          <div className={styles.twitterBox}>
+            <div className={styles.twitterBoxTitle}>
+              <h3>Twitter feed</h3>
+            </div>
+            <div className={styles.twitterFeedContainer}>
+              <TwitterFeed />
+            </div>
           </div>
         </div>
         <div className={styles.middle}>

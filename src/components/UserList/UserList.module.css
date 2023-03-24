@@ -10,7 +10,7 @@
 
 .listHeader {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 5% 40% 25% 10% 10% 10%;
 
   background-color: #212121;
   border-radius: 0.5rem;
@@ -19,7 +19,7 @@
 
 .listItem {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 5% 40% 25% 10% 10% 10%;
 
   padding: 2rem 2rem;
   border-bottom: 1px solid #707070;

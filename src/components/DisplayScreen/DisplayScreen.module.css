@@ -31,7 +31,7 @@
 }
 
 .matchListContainer {
-  max-height: 1200px;
+  max-height: 1350px;
   overflow: scroll;
 
   border-radius: 1rem;
@@ -100,10 +100,32 @@
   border-radius: 2rem;
 }
 
+.twitterBox {
+  background-color: #404040;
+  border-radius: 1rem;
+  padding: 2rem;
+
+  max-width: 750px;
+  margin-bottom: 4rem;
+}
+
+.twitterBoxTitle {
+  background-color: #212121;
+  color: white;
+  font-size: 6rem;
+  border-radius: 1rem;
+
+  text-align: center;
+  padding: 1rem;
+}
+
 .twitterFeedContainer {
   max-height: 950px;
+  max-width: 500px;
+  margin: auto;
   overflow: scroll;
   border-radius: 4rem;
+  padding-top: 2rem;
 }
 
 .blackSquare {

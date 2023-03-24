@@ -3,5 +3,15 @@ import "moment/locale/nb";
 
 export function createTimeLabel(date: string) {
   const dateToFormat = new Date(date);
-  return moment(dateToFormat).format("dd Do MMM YYYY");
+
+  console.log("matchWeek:", moment(dateToFormat).week());
+  console.log("thisWeek:", moment(new Date()).week());
+  const matchWeek = moment(dateToFormat).week();
+  const currentWeek = moment(new Date()).week();
+
+  const timeLabel =
+    matchWeek === currentWeek
+      ? moment(dateToFormat).format("dddd HH:mm")
+      : moment(dateToFormat).format("dd Do MMM YYYY");
+  return timeLabel;
 }
