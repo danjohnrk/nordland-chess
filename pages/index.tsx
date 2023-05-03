@@ -2,10 +2,12 @@ import { getAllMatches } from "@/mockapi/matchApi";
 import { getAllUsers } from "@/mockapi/userApi";
 import { LoadingSpinner } from "@/src/components/LoadingSpinner/LoadingSpinner";
 import { MatchList } from "@/src/components/MatchList/MatchList";
+import PageButton from "@/src/components/PageButton/PageButton";
 import { UserList } from "@/src/components/UserList/UserList";
 import AuthContext from "@/stores/authContext";
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -65,76 +67,41 @@ export default function Home() {
         <link rel="icon" href="/chess-board-logo.svg" />
       </Head>
       <div className={styles.header}>
-        <nav>
-          <ul className={styles.headerList}>
-            {user != null && (
-              <li>
-                <Link href="/delete-user" className={styles.username}>
-                  {user.user_metadata.full_name}
-                </Link>
-              </li>
-            )}
-            <li>
-              {user != null && (
-                <button className={styles.loginButton} onClick={logout}>
-                  Logg ut
-                </button>
-              )}
-              {user === null && (
-                <button className={styles.loginButton} onClick={login}>
-                  Logg inn/Registrer
-                </button>
-              )}
-            </li>
-            {user != null && userIsActive === true && (
-              <li className={styles.headerListItem}>
-                <Link href="/new-match">Registrer match</Link>
-              </li>
-            )}
-            {user != null && userIsActive === true && (
-              <li className={styles.headerListItem}>
-                <Link href="/chessboard">Sjakkbrett</Link>
-              </li>
-            )}
-            {user != null && userIsActive === true && (
-              <li className={styles.headerListItem}>
-                <a href="/display" target="_blank">
-                  Visning
-                </a>
-              </li>
-            )}
-          </ul>
-        </nav>
+        <Image
+          src="/chess-board-logo-orange.svg"
+          alt="nordland chess logo"
+          width={48}
+          height={48}
+          className={styles.headerIcon}
+        />
+        <span className={styles.headerTitle}>Nordland chess</span>
       </div>
       <main className={styles.main}>
-        {loadingUsers === false && (
+        {user !== null && (
           <>
-            {(userIsActive === true || user == null) && (
-              <>
-                {users != null && <UserList users={users} />}
-                {matches != null && matchLoading === false && (
-                  <MatchList matches={matches} />
-                )}
-              </>
-            )}
-            {userIsActive === false && user != null && activating === false && (
-              <div className={styles.welcomeScreen}>
-                <h2>Velkommen!</h2>
-                <button
-                  className={styles.activateButton}
-                  onClick={activateUser}
-                >
-                  Aktiver brukeren din her!
-                </button>
-              </div>
-            )}
-            {activating === true && (
-              <div className={styles.activatingScreen}>
-                <h2>Aktiverer bruker...</h2>
-                <LoadingSpinner />
-              </div>
-            )}
+            <section className={styles.listSection}>
+              <PageButton type="profile" />
+              <span className={styles.seperator}></span>
+              <PageButton type="match-list" />
+              <span className={styles.seperator}></span>
+              <PageButton type="user-list" />
+              <span className={styles.seperator}></span>
+              <PageButton type="chess-board" />
+              <span className={styles.seperator}></span>
+              <PageButton type="display" />
+            </section>
+            <Link href="/new-match">
+              <div className={styles.registerMatchButton}>Registrer match</div>
+            </Link>
+            <button className={styles.logoutButton} onClick={logout}>
+              Logg ut
+            </button>
           </>
+        )}
+        {user === null && (
+          <button className={styles.loginButton} onClick={login}>
+            Logg inn
+          </button>
         )}
       </main>
     </>

@@ -1,4 +1,5 @@
 import { Chessboard } from "@/src/components/Chessboard/Chessboard";
+import PageTemplate from "@/src/components/PageTemplate/PageTemplate";
 import AuthContext from "@/stores/authContext";
 import styles from "@/styles/Home.module.css";
 import Link from "next/link";
@@ -16,28 +17,10 @@ const ChessBoardPage = () => {
   );
   return (
     <>
-      <div className={styles.header}>
-        <nav>
-          <ul className={styles.headerList}>
-            <li>
-              {user != null && (
-                <button className={styles.loginButton} onClick={logout}>
-                  Logg ut
-                </button>
-              )}
-            </li>
-            {user != null && (
-              <li className={styles.headerListItem}>
-                <Link className={styles.loginButton} href="/">
-                  Tilbake
-                </Link>
-              </li>
-            )}
-          </ul>
-        </nav>
-      </div>
       {standingData != null && standingLoading === false && (
-        <Chessboard standing={standingData.standing} />
+        <PageTemplate title="Sjakkbrett">
+          <Chessboard standing={standingData.standing} />
+        </PageTemplate>
       )}
     </>
   );

@@ -1,0 +1,14 @@
+.pageButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.pageButtonText {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  font-size: 2rem;
+}

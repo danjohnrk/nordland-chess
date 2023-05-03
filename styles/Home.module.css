@@ -1,6 +1,18 @@
 .header {
   background-color: #212121;
-  padding: 2rem;
+  padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  margin: 2rem;
+  border-radius: 1rem;
+}
+
+.headerTitle {
+  font-size: 3rem;
+  font-weight: bold;
 }
 
 .headerList {
@@ -35,8 +47,103 @@
 }
 
 .main {
-  padding: 1rem;
+  padding: 2rem;
   min-height: 100vh;
+}
+
+.registerMatchButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+
+  background-image: linear-gradient(
+    to right,
+    #ff512f 0%,
+    #f09819 51%,
+    #ff512f 100%
+  );
+
+  font-size: 3rem;
+
+  width: 100%;
+  height: 16rem;
+  margin-top: 4rem;
+  border-radius: 2rem;
+}
+
+.logoutButton {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+  font-size: 2rem;
+  color: white;
+
+  background-image: linear-gradient(
+    to right,
+    #d31027 0%,
+    #ea384d 51%,
+    #d31027 100%
+  );
+
+  border-radius: 4px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 8rem;
+
+  background-color: #b50934;
+}
+
+.loginButton {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+
+  background-image: linear-gradient(
+    to right,
+    #ff512f 0%,
+    #f09819 51%,
+    #ff512f 100%
+  );
+
+  font-size: 2rem;
+  border-radius: 4px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 8rem;
+
+  background-color: #b50934;
+}
+
+.headerIcon {
+  color: blue;
+}
+
+.listSection {
+  display: flex;
+  flex-direction: column;
+  background-color: #212121;
+  border-radius: 1rem;
+}
+
+.seperator {
+  border-bottom: 1px solid #404040;
+  margin-left: 7rem;
 }
 
 .welcomeScreen {

@@ -4,8 +4,11 @@ import AuthContext from "@/stores/authContext";
 import styles from "./MatchRegister.module.css";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import ToggleButton from "../ToggleButton/ToggleButton";
+import Image from "next/image";
 
 export const MatchRegister = () => {
+  const { user, users } = useContext(AuthContext);
   const [match, setMatch] = useState<IApiRegisterMatch>({
     blackPlayer: null,
     whitePlayer: null,
@@ -13,12 +16,69 @@ export const MatchRegister = () => {
   });
   const router = useRouter();
   const [currentPlayerColor, setCurrentPlayerColor] = useState<
-    "white" | "black" | null
-  >(null);
+    "white" | "black"
+  >("black");
   const [opponentId, setOpponentId] = useState<string | null>(null);
-  const [result, setResult] = useState<"white" | "black" | "draw" | null>(null);
+  const [result, setResult] = useState<"victory" | "loss" | "remis" | null>(
+    null
+  );
 
-  const { user, users } = useContext(AuthContext);
+  useEffect(() => {
+    if (match.blackPlayer === null && user !== null)
+      setMatch({ blackPlayer: user.id, whitePlayer: null, result: null });
+  }, [user, match]);
+
+  const toggleCurrentPlayerColor = () => {
+    setCurrentPlayerColor(currentPlayerColor === "black" ? "white" : "black");
+    const newMatch = match;
+
+    if (currentPlayerColor === "black") {
+      newMatch.blackPlayer = user.id;
+      newMatch.whitePlayer = null;
+      if (opponentId !== null) {
+        newMatch.whitePlayer = opponentId;
+      }
+    }
+
+    if (currentPlayerColor === "white") {
+      newMatch.whitePlayer = user.id;
+      newMatch.blackPlayer = null;
+      if (opponentId !== null) {
+        newMatch.blackPlayer = opponentId;
+      }
+    }
+
+    if (result !== null) {
+      toggleResult({ result });
+    }
+    setMatch(newMatch);
+  };
+
+  const toggleResult = ({
+    result,
+  }: {
+    result: "victory" | "loss" | "remis" | null;
+  }) => {
+    const newMatch = match;
+
+    if (currentPlayerColor === null || opponentId === null) {
+      return;
+    }
+
+    if (result === "victory") {
+      newMatch.result = currentPlayerColor;
+    }
+
+    if (result === "loss") {
+      newMatch.result = currentPlayerColor === "black" ? "white" : "black";
+    }
+
+    if (result === "remis") {
+      newMatch.result = "draw";
+    }
+
+    setResult(result);
+  };
 
   const registerMatch = () => {
     if (
@@ -44,109 +104,126 @@ export const MatchRegister = () => {
         <div>
           <h2>Velg din farge</h2>
           <div className={styles.colorButtons}>
-            <button
-              className={styles.colorButtonWhite}
-              data-active={currentPlayerColor === "white"}
-              onClick={() => {
-                const newMatch = match;
-                if (newMatch.blackPlayer === user.id) {
-                  newMatch.blackPlayer = null;
-                }
-                newMatch.whitePlayer = user.id;
-                setCurrentPlayerColor("white");
-                setOpponentId(null);
-                setMatch(newMatch);
-              }}
-            ></button>
-            <button
-              className={styles.colorButtonBlack}
-              data-active={currentPlayerColor === "black"}
-              onClick={() => {
-                const newMatch = match;
-                if (newMatch.whitePlayer === user.id) {
-                  newMatch.whitePlayer = null;
-                }
-                newMatch.blackPlayer = user.id;
-                setCurrentPlayerColor("black");
-                setOpponentId(null);
-                setMatch(newMatch);
-              }}
-            ></button>
+            <div className={styles.colorButtonsColorHeader}>
+              <span>{currentPlayerColor === "black" ? "Sort" : "Hvit"}</span>
+            </div>
+            <ToggleButton toggle={toggleCurrentPlayerColor} />
           </div>
-          <h2>Velg Mostander</h2>
-          {users != null && (
-            <ul className={styles.userList}>
-              {users.map((opponent) => {
-                if (user.id === opponent.netlifyId) {
-                  return;
-                }
-                return (
-                  <li key={opponent.netlifyId}>
-                    <button
-                      className={styles.userButton}
-                      data-active={opponentId === opponent.netlifyId}
-                      onClick={() => {
-                        const newMatch = match;
-                        if (currentPlayerColor === null) {
-                          return;
-                        }
-                        if (currentPlayerColor === "black") {
-                          newMatch.whitePlayer = opponent.netlifyId;
-                        }
-                        if (currentPlayerColor === "white") {
-                          newMatch.blackPlayer = opponent.netlifyId;
-                        }
-                        setOpponentId(opponent.netlifyId);
-                        setMatch(newMatch);
-                      }}
-                    >{`${opponent.name} (${opponent.rating})`}</button>
-                  </li>
-                );
-              })}
-            </ul>
+          <section className={styles.oppentSection}>
+            <h2>{opponentId === null ? "Velg Motstander" : "Motstander"}</h2>
+            {users != null && opponentId === null && (
+              <ul className={styles.userList}>
+                {users.map((opponent) => {
+                  if (user.id === opponent.netlifyId) {
+                    return;
+                  }
+                  return (
+                    <li key={opponent.netlifyId}>
+                      <button
+                        className={styles.userButton}
+                        data-active={opponentId === opponent.netlifyId}
+                        onClick={() => {
+                          const newMatch = match;
+                          if (currentPlayerColor === null) {
+                            return;
+                          }
+                          if (currentPlayerColor === "black") {
+                            newMatch.whitePlayer = opponent.netlifyId;
+                          }
+                          if (currentPlayerColor === "white") {
+                            newMatch.blackPlayer = opponent.netlifyId;
+                          }
+                          setOpponentId(opponent.netlifyId);
+                          setMatch(newMatch);
+                        }}
+                      >
+                        {`${opponent.name} (${opponent.rating})`}
+                        <Image
+                          src={"/chevron-right-solid.svg"}
+                          alt={"Arrow right"}
+                          width={16}
+                          height={16}
+                        />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+            {users != null && opponentId !== null && (
+              <div className={styles.selectedUser}>
+                <h3>
+                  {
+                    users.find((user) => {
+                      return user.netlifyId === opponentId;
+                    })?.name
+                  }
+                </h3>
+                <button
+                  className={styles.changeOpponentButton}
+                  onClick={() => {
+                    setOpponentId(null);
+                  }}
+                >
+                  Endre Motstander
+                  <Image
+                    src={"/chevron-right-solid.svg"}
+                    alt={"Arrow right"}
+                    width={16}
+                    height={16}
+                  />
+                </button>
+              </div>
+            )}
+          </section>
+          {opponentId !== null && (
+            <section className={styles.resultSection}>
+              <h2>Sett Resultat</h2>
+              <div className={styles.resultButtons}>
+                <label className={styles.resultButtonLabel}>
+                  Seier
+                  <button
+                    className={styles.resultButton}
+                    data-active={result === "victory"}
+                    onClick={() => {
+                      toggleResult({ result: "victory" });
+                    }}
+                  >
+                    <div className={styles.selectedCircle}></div>
+                  </button>
+                </label>
+                <label className={styles.resultButtonLabel}>
+                  Tap
+                  <button
+                    className={styles.resultButton}
+                    data-active={result === "loss"}
+                    onClick={() => {
+                      toggleResult({ result: "loss" });
+                    }}
+                  >
+                    <div className={styles.selectedCircle}></div>
+                  </button>
+                </label>
+                <label className={styles.resultButtonLabel}>
+                  Remis
+                  <button
+                    className={styles.resultButton}
+                    data-active={result === "remis"}
+                    onClick={() => {
+                      toggleResult({ result: "remis" });
+                    }}
+                  >
+                    <div className={styles.selectedCircle}></div>
+                  </button>
+                </label>
+              </div>
+              {result !== null && opponentId !== null && (
+                <button className={styles.approve} onClick={registerMatch}>
+                  Send inn
+                </button>
+              )}
+            </section>
           )}
-          <h2>Sett Resultat</h2>
-          <div className={styles.resultButtons}>
-            <label className={styles.resultButtonLabel}>
-              Sort
-              <button
-                className={styles.resultButtonBlack}
-                data-active={result === "black"}
-                onClick={() => {
-                  const newMatch = match;
-                  newMatch.result = "black";
-                  setResult("black");
-                }}
-              ></button>
-            </label>
-            <label className={styles.resultButtonLabel}>
-              Hvit
-              <button
-                className={styles.resultButtonWhite}
-                data-active={result === "white"}
-                onClick={() => {
-                  const newMatch = match;
-                  newMatch.result = "white";
-                  setResult("white");
-                }}
-              ></button>
-            </label>
-            <label className={styles.resultButtonLabel}>
-              Remi
-              <button
-                className={styles.resultButtonRemis}
-                data-active={result === "draw"}
-                onClick={() => {
-                  const newMatch = match;
-                  newMatch.result = "draw";
-                  setResult("draw");
-                }}
-              ></button>
-            </label>
-          </div>
-          <button className={styles.approve} onClick={registerMatch}>
-            Registrer
-          </button>
         </div>
       )}
     </main>

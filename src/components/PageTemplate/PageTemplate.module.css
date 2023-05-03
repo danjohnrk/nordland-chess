@@ -1,0 +1,33 @@
+.header {
+  width: 100%;
+  display: flex;
+  font-size: 2rem;
+  flex: 1;
+
+  align-items: center;
+
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #404040;
+
+  margin-bottom: 2rem;
+}
+
+.headerLink {
+  color: #ff8c00;
+  display: flex;
+  align-items: center;
+
+  flex: 1;
+}
+
+.placeHolder {
+  flex: 1;
+}
+
+.headerTitle {
+  font-size: 4rem;
+}
+
+.content {
+  padding: 0 2rem;
+}

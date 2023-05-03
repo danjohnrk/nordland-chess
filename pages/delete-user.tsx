@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import AuthContext from "@/stores/authContext";
 import { LoadingSpinner } from "@/src/components/LoadingSpinner/LoadingSpinner";
 import { useRouter } from "next/router";
+import PageTemplate from "@/src/components/PageTemplate/PageTemplate";
 
 const DeleteUser = () => {
   const { user, logout } = useContext(AuthContext);
@@ -24,27 +25,7 @@ const DeleteUser = () => {
     }, 3000);
   };
   return (
-    <>
-      <div className={styles.header}>
-        <nav>
-          <ul className={styles.headerList}>
-            <li>
-              {user != null && (
-                <button className={styles.loginButton} onClick={logout}>
-                  Logg ut
-                </button>
-              )}
-            </li>
-            {user != null && (
-              <li className={styles.headerListItem}>
-                <Link className={styles.loginButton} href="/">
-                  Tilbake
-                </Link>
-              </li>
-            )}
-          </ul>
-        </nav>
-      </div>
+    <PageTemplate title="Profil">
       <main className={styles.deleteUserMain}>
         {deactivating === false && user != null && (
           <>
@@ -65,7 +46,7 @@ const DeleteUser = () => {
           </div>
         )}
       </main>
-    </>
+    </PageTemplate>
   );
 };
 
