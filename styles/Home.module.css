@@ -23,25 +23,6 @@
   gap: 2rem;
 }
 
-.loginButton {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-
-  font-size: 8px;
-  padding: 1rem;
-  background-color: #505050;
-  border-radius: 4px;
-}
-
-.loginButton:hover {
-  background-color: #404040;
-}
-
 .headerListItem:hover {
   border-bottom: 1px solid white;
 }
@@ -87,21 +68,22 @@
   font-size: 2rem;
   color: white;
 
-  background-image: linear-gradient(
-    to right,
-    #d31027 0%,
-    #ea384d 51%,
-    #d31027 100%
-  );
+  height: 8rem;
+}
 
-  border-radius: 4px;
+.logoutButton:hover {
+  text-decoration: underline;
+}
+
+.logoutButtonContainer {
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
   height: 8rem;
 
-  background-color: #b50934;
+  display: flex;
+  justify-content: center;
 }
 
 .loginButton {
@@ -126,12 +108,6 @@
   bottom: 0;
   left: 0;
   height: 8rem;
-
-  background-color: #b50934;
-}
-
-.headerIcon {
-  color: blue;
 }
 
 .listSection {
@@ -150,6 +126,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 3rem;
+}
+
+.welcomeScreen h2 {
+  font-size: 3rem;
+}
+
+.welcomeScreen p {
+  font-size: 2rem;
 }
 
 .activatingScreen {
@@ -168,9 +153,16 @@
   outline: inherit;
 
   margin-top: 2rem;
-  padding: 1rem;
-  background-color: #212121;
+  padding: 2rem;
+  font-size: 2rem;
   border-radius: 4px;
+
+  background-image: linear-gradient(
+    to right,
+    #ff512f 0%,
+    #f09819 51%,
+    #ff512f 100%
+  );
 }
 
 .activateButton:hover {
@@ -205,13 +197,4 @@
 
 .deleteUserButton:hover {
   background-color: orange;
-}
-
-@media (min-width: 750px) {
-  .loginButton {
-    font-size: 16px;
-  }
-  .deleteUserMain {
-    padding: 16rem;
-  }
 }

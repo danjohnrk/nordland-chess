@@ -1,32 +1,17 @@
-import { getAllMatches } from "@/mockapi/matchApi";
-import { getAllUsers } from "@/mockapi/userApi";
 import { LoadingSpinner } from "@/src/components/LoadingSpinner/LoadingSpinner";
-import { MatchList } from "@/src/components/MatchList/MatchList";
 import PageButton from "@/src/components/PageButton/PageButton";
-import { UserList } from "@/src/components/UserList/UserList";
 import AuthContext from "@/stores/authContext";
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import { useQuery } from "react-query";
 
 export default function Home() {
-  const { user, users, login, logout, loadingUsers } = useContext(AuthContext);
+  const { user, users, login, logout } = useContext(AuthContext);
 
   const [userIsActive, setUserIsActive] = useState(false);
   const [activating, setActivating] = useState(false);
-
-  const {
-    isLoading: matchLoading,
-    error,
-    data: matches,
-  } = useQuery("matchData", () =>
-    fetch("https://nrk-chess-api.onrender.com/match/all").then((res) =>
-      res.json()
-    )
-  );
 
   useEffect(() => {
     if (users != null && user != null) {
@@ -38,22 +23,42 @@ export default function Home() {
     }
   }, [users, user]);
 
-  const activateUser = () => {
+  // const activateUser = () => {
+  //   setActivating(true);
+
+  //   setTimeout(() => {
+  //     fetch("https://nrk-chess-api.onrender.com/user", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         netlifyId: user.id,
+  //         name: user.user_metadata.full_name,
+  //       }),
+  //     }).then((data) => {
+  //       location.reload();
+  //     });
+  //   }, 3000);
+  // };
+
+  const activateUser = async () => {
     setActivating(true);
 
     setTimeout(() => {
-      fetch("https://nrk-chess-api.onrender.com/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          netlifyId: user.id,
-          name: user.user_metadata.full_name,
-        }),
-      }).then((data) => {
-        location.reload();
-      });
+      fetch(
+        `/api/user?netlifyId=${user.id}&name=${user.user_metadata.full_name}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      )
+        .then((data) => {
+          console.log(data);
+          //location.reload();
+        })
+        .catch((err) => console.log(err));
     }, 3000);
   };
 
@@ -77,7 +82,7 @@ export default function Home() {
         <span className={styles.headerTitle}>Nordland chess</span>
       </div>
       <main className={styles.main}>
-        {user !== null && (
+        {user !== null && userIsActive === true && (
           <>
             <section className={styles.listSection}>
               <PageButton type="profile" />
@@ -93,15 +98,41 @@ export default function Home() {
             <Link href="/new-match">
               <div className={styles.registerMatchButton}>Registrer match</div>
             </Link>
-            <button className={styles.logoutButton} onClick={logout}>
-              Logg ut
-            </button>
+            <div className={styles.logoutButtonContainer}>
+              <button className={styles.logoutButton} onClick={logout}>
+                Logg ut
+              </button>
+            </div>
           </>
         )}
         {user === null && (
-          <button className={styles.loginButton} onClick={login}>
-            Logg inn
-          </button>
+          <>
+            <button className={styles.loginButton} onClick={login}>
+              Logg inn / Registrer
+            </button>
+          </>
+        )}
+        {userIsActive === false && user != null && activating === false && (
+          <>
+            <div className={styles.welcomeScreen}>
+              <h2>Velkommen!</h2>
+              <p>Profilen din er snart klart til bruk</p>
+              <button className={styles.activateButton} onClick={activateUser}>
+                Aktiver brukeren din her!
+              </button>
+            </div>
+            <div className={styles.logoutButtonContainer}>
+              <button className={styles.logoutButton} onClick={logout}>
+                Avbryt
+              </button>
+            </div>
+          </>
+        )}
+        {activating === true && (
+          <div className={styles.activatingScreen}>
+            <h2>Aktiverer bruker...</h2>
+            <LoadingSpinner />
+          </div>
         )}
       </main>
     </>
