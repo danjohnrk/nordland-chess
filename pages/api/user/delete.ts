@@ -9,7 +9,7 @@ export default async function remove(req: any, res: any) {
   const response = await axios.delete(userUrl, {
     headers: {
       "Content-Type": "application/json",
-      ApiKey: process.env.API_KEY,
+      ApiKey: "f4e3b4cc-ed8c-4b73-b8e9-33e4e9c1a712",
       Authorization: `Bearer ${token}`,
     },
   });
