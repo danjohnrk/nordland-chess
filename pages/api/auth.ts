@@ -5,10 +5,27 @@ export default async function auth(req: any, res: any) {
     query: { netlifyId },
   } = req;
 
-  const userUrl = `https://nrk-chess-api.onrender.com/auth?
-  netlifyId=${netlifyId}&apiKey=${process.env.API_KEY}`;
-  const response = await axios.post(userUrl);
-  res.status(200).json({
-    data: response.data,
-  });
+  const authUrl = `https://nrk-chess-api.onrender.com/auth`;
+  try {
+    const response = await axios.post(
+      authUrl,
+      {
+        netlifyId: netlifyId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          ApiKey: process.env.API_KEY,
+        },
+      }
+    );
+
+    res.status(200).json({
+      data: response.data,
+    });
+  } catch (error) {
+    res.status(200).json({
+      data: { token: null, error },
+    });
+  }
 }

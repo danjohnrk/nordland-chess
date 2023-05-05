@@ -3,23 +3,29 @@ import PageTemplate from "@/src/components/PageTemplate/PageTemplate";
 import AuthContext from "@/stores/authContext";
 import styles from "@/styles/Home.module.css";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 const ChessBoardPage = () => {
-  const { user, logout } = useContext(AuthContext);
-  const { isLoading: standingLoading, data: standingData } = useQuery(
-    "standingData",
-    () =>
-      fetch("https://nrk-chess-api.onrender.com/chess_display").then((res) =>
-        res.json()
-      )
-  );
+  const { token, retrievingToken } = useContext(AuthContext);
+  const [standing, setStanding] = useState(null);
+
+  useEffect(() => {
+    if (token === null) {
+      return;
+    }
+    fetch(`/api/chessboard/chessboard?token=${token}`).then((response) => {
+      response.json().then((json) => {
+        setStanding(json.data.standing);
+      });
+    });
+  }, [token]);
+
   return (
     <>
-      {standingData != null && standingLoading === false && (
+      {standing != null && (
         <PageTemplate title="Sjakkbrett">
-          <Chessboard standing={standingData.standing} />
+          <Chessboard standing={standing} />
         </PageTemplate>
       )}
     </>

@@ -1,14 +1,56 @@
 import { createTimeLabel } from "@/src/helpers/date";
 import { translateResult } from "@/src/helpers/result";
 import { IMatch } from "@/src/interfaces/match";
+import AuthContext from "@/stores/authContext";
 import Image from "next/image";
+import { useContext, useEffect, useState } from "react";
 import styles from "./MatchList.module.css";
 
-interface IProps {
-  matches: IMatch[];
-}
-export const MatchList = (props: IProps) => {
-  const { matches } = props;
+export const MatchList = () => {
+  const { token, retrievingToken } = useContext(AuthContext);
+  const [matches, setMatches] = useState([
+    {
+      time: "string",
+      playerWhite: {
+        netlifyId: "string",
+        name: "string",
+        rating: 0,
+        victories: 0,
+        losses: 0,
+        draws: 0,
+      },
+      playerBlack: {
+        netlifyId: "string",
+        name: "string",
+        rating: 0,
+        victories: 0,
+        losses: 0,
+        draws: 0,
+      },
+      result: "string",
+      playerWhiteCurrentRating: 0,
+      playerWhiteRatingChange: 0,
+      playerBlackCurrentRating: 0,
+      playerBlackRatingChange: 0,
+    },
+  ]);
+
+  useEffect(() => {
+    if (token === null) {
+      return;
+    }
+    fetch(`/api/match/all?token=${token}`, {
+      method: "GET",
+    }).then((response) => {
+      response.json().then((json) => {
+        setMatches(json.data);
+      });
+    });
+  }, [token]);
+
+  if (matches === null) {
+    return null;
+  }
 
   matches.sort((a, b) => {
     return new Date(b.time).valueOf() - new Date(a.time).valueOf();
@@ -44,7 +86,7 @@ export const MatchList = (props: IProps) => {
                 <div>
                   <span>Sort: </span>
                   <span>{match.playerBlack.name}</span>
-                  <span>{` (${match.playerBlack.rating})`}</span>
+                  <span>{` (${match.playerBlackCurrentRating})`}</span>
                   {match.result === "black" && (
                     <Image
                       src="/winner.svg"

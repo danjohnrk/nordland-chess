@@ -14,9 +14,9 @@ export const MatchRegister = () => {
     {
       draws: 0,
       losses: 0,
-      name: "daniel",
-      netlifyId: "3ebc7928-7f87-4216-b0f7-fef1eaebb62f",
-      rating: 300,
+      name: "unknown",
+      netlifyId: "null",
+      rating: 0,
       victories: 0,
     },
   ]);
@@ -45,9 +45,9 @@ export const MatchRegister = () => {
     "white" | "black"
   >("black");
   const [opponentId, setOpponentId] = useState<string | null>(null);
-  const [result, setResult] = useState<
-    "player-one" | "player-two" | "remis" | null
-  >(null);
+  const [result, setResult] = useState<"victory" | "loss" | "remis" | null>(
+    null
+  );
 
   useEffect(() => {
     if (match.blackPlayer === null && user !== null)
@@ -55,31 +55,35 @@ export const MatchRegister = () => {
   }, [user, match]);
 
   const toggleCurrentPlayerColor = () => {
+    setCurrentPlayerColor(currentPlayerColor === "black" ? "white" : "black");
     const newMatch = match;
+
     if (currentPlayerColor === "black") {
-      setCurrentPlayerColor("white");
-      newMatch.whitePlayer = user.id;
-      newMatch.blackPlayer = null;
-      if (opponentId !== null) {
-        newMatch.blackPlayer = opponentId;
-      }
-      setMatch(newMatch);
-    }
-    if (currentPlayerColor === "white") {
-      setCurrentPlayerColor("black");
       newMatch.blackPlayer = user.id;
       newMatch.whitePlayer = null;
       if (opponentId !== null) {
         newMatch.whitePlayer = opponentId;
       }
-      setMatch(newMatch);
     }
+
+    if (currentPlayerColor === "white") {
+      newMatch.whitePlayer = user.id;
+      newMatch.blackPlayer = null;
+      if (opponentId !== null) {
+        newMatch.blackPlayer = opponentId;
+      }
+    }
+
+    if (result !== null) {
+      toggleResult({ result });
+    }
+    setMatch(newMatch);
   };
 
   const toggleResult = ({
     result,
   }: {
-    result: "player-one" | "player-two" | "remis" | null;
+    result: "victory" | "loss" | "remis" | null;
   }) => {
     const newMatch = match;
 
@@ -87,11 +91,11 @@ export const MatchRegister = () => {
       return;
     }
 
-    if (result === "player-one") {
+    if (result === "victory") {
       newMatch.result = currentPlayerColor;
     }
 
-    if (result === "player-two") {
+    if (result === "loss") {
       newMatch.result = currentPlayerColor === "black" ? "white" : "black";
     }
 
@@ -100,7 +104,6 @@ export const MatchRegister = () => {
     }
 
     setResult(result);
-    setMatch(newMatch);
   };
 
   const registerMatch = () => {
@@ -111,15 +114,13 @@ export const MatchRegister = () => {
     ) {
       return;
     }
-    fetch(
-      `/api/match/add?whitePlayer=${match.whitePlayer}&blackPlayer=${match.blackPlayer}&result=${match.result}&token=${token}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    fetch("https://nrk-chess-api.onrender.com/match", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(match),
+    });
     router.push("/");
   };
 
@@ -203,37 +204,34 @@ export const MatchRegister = () => {
           </section>
           {opponentId !== null && (
             <section className={styles.resultSection}>
-              <h2>Velg vinnner</h2>
+              <h2>Sett Resultat</h2>
               <div className={styles.resultButtons}>
                 <label className={styles.resultButtonLabel}>
+                  Seier
                   <button
                     className={styles.resultButton}
-                    data-active={result === "player-one"}
+                    data-active={result === "victory"}
                     onClick={() => {
-                      toggleResult({ result: "player-one" });
+                      toggleResult({ result: "victory" });
                     }}
                   >
                     <div className={styles.selectedCircle}></div>
                   </button>
-                  {user.user_metadata.full_name}
                 </label>
                 <label className={styles.resultButtonLabel}>
+                  Tap
                   <button
                     className={styles.resultButton}
-                    data-active={result === "player-two"}
+                    data-active={result === "loss"}
                     onClick={() => {
-                      toggleResult({ result: "player-two" });
+                      toggleResult({ result: "loss" });
                     }}
                   >
                     <div className={styles.selectedCircle}></div>
                   </button>
-                  {
-                    users.find((user) => {
-                      return user.netlifyId === opponentId;
-                    })?.name
-                  }
                 </label>
                 <label className={styles.resultButtonLabel}>
+                  Remis
                   <button
                     className={styles.resultButton}
                     data-active={result === "remis"}
@@ -243,7 +241,6 @@ export const MatchRegister = () => {
                   >
                     <div className={styles.selectedCircle}></div>
                   </button>
-                  Remis
                 </label>
               </div>
               {result !== null && opponentId !== null && (

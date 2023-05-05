@@ -5,15 +5,17 @@ import AuthContext from "@/stores/authContext";
 import { LoadingSpinner } from "@/src/components/LoadingSpinner/LoadingSpinner";
 import { useRouter } from "next/router";
 import PageTemplate from "@/src/components/PageTemplate/PageTemplate";
+import UserContext from "@/stores/userContext";
 
 const DeleteUser = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(UserContext);
+  const { token, retrievingToken } = useContext(AuthContext);
   const [deactivating, setDeactivating] = useState(false);
   const router = useRouter();
   const deactivatingUser = () => {
     setDeactivating(true);
     setTimeout(() => {
-      fetch(`https://nrk-chess-api.onrender.com/user?netlifyId=${user.id}`, {
+      fetch(`/api/user/delete?netlifyId=${user.id}&token=${token}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

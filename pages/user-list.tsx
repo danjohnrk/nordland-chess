@@ -1,15 +1,28 @@
-import { useContext } from "react";
-import AuthContext from "@/stores/authContext";
-import { UserList } from "@/src/components/UserList/UserList";
 import PageTemplate from "@/src/components/PageTemplate/PageTemplate";
+import { UserList } from "@/src/components/UserList/UserList";
+import AuthContext from "@/stores/authContext";
+import { useContext, useEffect, useState } from "react";
 
 const UserListPage = () => {
-  const { users, loadingUsers } = useContext(AuthContext);
+  const { token, retrievingToken } = useContext(AuthContext);
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    if (token === null) {
+      return;
+    }
+    fetch(`/api/user/all?token=${token}`, {
+      method: "GET",
+    }).then((response) => {
+      response.json().then((json) => {
+        setUsers(json.data);
+      });
+    });
+  }, [token]);
+
   return (
     <PageTemplate title="Ranking">
-      {loadingUsers === false && (
-        <>{users != null && <UserList users={users} />}</>
-      )}
+      <>{users != null && <UserList users={users} />}</>
     </PageTemplate>
   );
 };

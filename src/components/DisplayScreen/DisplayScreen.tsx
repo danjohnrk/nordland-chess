@@ -11,36 +11,40 @@ import { TwitterFeed } from "../TwitterFeed/TwitterFeed";
 import AuthContext from "@/stores/authContext";
 import { useQuery } from "react-query";
 import Image from "next/image";
+import Link from "next/link";
+import PageTemplate from "../PageTemplate/PageTemplate";
 
 export const DisplayScreen = () => {
   //const { standing } = getBoardStanding();
-  const { users } = useContext(AuthContext);
+  const { token, retrievingToken } = useContext(AuthContext);
+  const [users, setUsers] = useState(null);
+  const [standing, setStanding] = useState(null);
+  const [funcFacts, setFuncFacts] = useState(null);
 
-  const {
-    isLoading: matchLoading,
-    error,
-    data: matches,
-  } = useQuery("matchData", () =>
-    fetch("https://nrk-chess-api.onrender.com/match/all").then((res) =>
-      res.json()
-    )
-  );
+  useEffect(() => {
+    if (token === null) {
+      return;
+    }
+    fetch(`/api/user/all?token=${token}`, {
+      method: "GET",
+    }).then((response) => {
+      response.json().then((json) => {
+        setUsers(json.data);
+      });
+    });
 
-  const { isLoading: standingLoading, data: standingData } = useQuery(
-    "standingData",
-    () =>
-      fetch("https://nrk-chess-api.onrender.com/chess_display").then((res) =>
-        res.json()
-      )
-  );
+    fetch(`/api/chessboard/chessboard?token=${token}`).then((response) => {
+      response.json().then((json) => {
+        setStanding(json.data.standing);
+      });
+    });
 
-  const { isLoading: funFactLoading, data: funFactData } = useQuery(
-    "funFact",
-    () =>
-      fetch("https://nrk-chess-api.onrender.com/fun_fact/chess").then((res) =>
-        res.json()
-      )
-  );
+    fetch(`/api/fun_facts/facts?token=${token}`).then((response) => {
+      response.json().then((json) => {
+        setFuncFacts(json.data.funFact);
+      });
+    });
+  }, [token]);
 
   return (
     <>
@@ -50,6 +54,14 @@ export const DisplayScreen = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/chess-board-logo.svg" />
       </Head>
+
+      <div className={styles.tvOnlyWarning}>
+        <PageTemplate title="TV-visning">
+          <div className={styles.tvOnlyWarningContent}>
+            <h3>Denne visningen er kun ment for tv</h3>
+          </div>
+        </PageTemplate>
+      </div>
       <main className={styles.main}>
         <div className={styles.leftSide}>
           <div className={styles.qrCodeBox}>
@@ -77,26 +89,22 @@ export const DisplayScreen = () => {
         </div>
         <div className={styles.middle}>
           {users != null && <UserList users={users} />}
-          {matchLoading === false && matches != null && (
-            <div className={styles.matchListContainer}>
-              <MatchList matches={matches} />
-            </div>
-          )}
+          <div className={styles.matchListContainer}>
+            <MatchList />
+          </div>
         </div>
         <div className={styles.rightSide}>
           <div className={styles.chessBoardContainer}>
-            {standingLoading === false && standingData != null && (
-              <DisplayScreen__Chessboard standing={standingData.standing} />
+            {standing != null && (
+              <DisplayScreen__Chessboard standing={standing} />
             )}
           </div>
-          {funFactLoading === false && funFactData != null && (
+          {funcFacts != null && (
             <div className={styles.funfactBox}>
               <div className={styles.funfactBoxTitle}>
                 <h3>Fun Fact</h3>
               </div>
-              <span className={styles.funfactBoxText}>
-                {funFactData.funFact}
-              </span>
+              <span className={styles.funfactBoxText}>{funcFacts}</span>
             </div>
           )}
           <div className={styles.houseRulesBox}>

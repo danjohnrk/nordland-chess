@@ -6,6 +6,8 @@
 
   border-radius: 0.5rem;
   padding: 1rem;
+
+  font-size: 1.4rem;
 }
 
 .listHeader {
@@ -22,6 +24,9 @@
   grid-template-columns: 5% 40% 25% 10% 10% 10%;
 
   padding: 2rem 2rem;
+}
+
+.list li:not(:last-child) .listItem {
   border-bottom: 1px solid #707070;
 }
 

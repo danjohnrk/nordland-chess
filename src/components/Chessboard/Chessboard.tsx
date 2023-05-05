@@ -17,8 +17,9 @@ export const Chessboard = (props: IProps) => {
   const [loadingSpinner, setLoadingSpinner] = useState<boolean>(false);
 
   const storeCurrentStanding = () => {
+    console.log(currentStanding);
     fetch(
-      `https://nrk-chess-api.onrender.com/chess_display?json=${JSON.stringify({
+      `/api/chessboard/edit?json=${JSON.stringify({
         standing: currentStanding,
       })}`,
       {

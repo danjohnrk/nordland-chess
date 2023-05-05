@@ -7,7 +7,7 @@ export function translateResult(result: string) {
     return "Sort";
   }
 
-  if (result === "remis") {
+  if (result === "draw") {
     return "Remi";
   }
 

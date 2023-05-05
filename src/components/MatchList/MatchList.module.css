@@ -9,6 +9,8 @@
   overflow: scroll;
 
   margin-top: 2rem;
+
+  font-size: 1.4rem;
 }
 
 .listHeader {
@@ -25,6 +27,9 @@
   grid-template-columns: 60% 15% 25%;
 
   padding: 2rem 2rem;
+}
+
+.list li:not(:last-child) .listItem {
   border-bottom: 1px solid #707070;
 }
 

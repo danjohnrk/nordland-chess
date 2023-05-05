@@ -1,4 +1,5 @@
 import { AuthContextProvider } from "@/stores/authContext";
+import { UserContextProvider } from "@/stores/userContext";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useState } from "react";
@@ -9,9 +10,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
-        <Component {...pageProps} />
-      </AuthContextProvider>
+      <UserContextProvider>
+        <AuthContextProvider>
+          <Component {...pageProps} />
+        </AuthContextProvider>
+      </UserContextProvider>
     </QueryClientProvider>
   );
 }
