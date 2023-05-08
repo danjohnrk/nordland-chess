@@ -7,9 +7,11 @@ import { useRouter } from "next/router";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import Image from "next/image";
 import UserContext from "@/stores/userContext";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const MatchRegister = () => {
   const { user } = useContext(UserContext);
+  const [loadingSite, setLoadingSite] = useState(true);
   const [users, setUsers] = useState([
     {
       draws: 0,
@@ -122,6 +124,18 @@ export const MatchRegister = () => {
     );
     router.push("/");
   };
+
+  setTimeout(() => {
+    setLoadingSite(false);
+  }, 750);
+
+  if (loadingSite) {
+    return (
+      <div className={styles.activatingScreen}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <main className={styles.main}>
