@@ -60,6 +60,12 @@
   color: lightcoral;
 }
 
+@media (min-width: 3000px) {
+  .list {
+    font-size: 3rem;
+  }
+}
+
 @media (min-width: 750px) {
   .winnerLogo {
     width: 2rem;
