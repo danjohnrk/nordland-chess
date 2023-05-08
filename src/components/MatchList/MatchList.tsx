@@ -40,7 +40,6 @@ export const MatchList = () => {
     <ul className={styles.list}>
       <li className={styles.listHeader}>
         <span>Spillere</span>
-        <span></span>
         <span>Resultat</span>
         <span className={styles.listHeaderDate}>Dato</span>
       </li>
