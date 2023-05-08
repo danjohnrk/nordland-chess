@@ -26,6 +26,10 @@ export interface IMatch {
     losses: number;
     draws: number;
   };
+  playerWhiteCurrentRating: number;
+  playerWhiteRatingChange: number;
+  playerBlackCurrentRating: number;
+  playerBlackRatingChange: number;
 
   result: string;
 }

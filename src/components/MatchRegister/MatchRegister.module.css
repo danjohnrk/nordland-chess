@@ -99,6 +99,7 @@
   justify-content: space-between;
 
   background-color: #212121;
+  color: white;
 }
 
 .changeOpponentButton {
@@ -120,6 +121,7 @@
   border-radius: 1rem;
 
   background-color: #212121;
+  color: white;
 }
 
 .resultButtons {
@@ -134,6 +136,7 @@
   align-items: center;
   font-size: 3rem;
   gap: 2rem;
+  color: white;
 }
 
 .selectedUser {
@@ -204,6 +207,8 @@
   position: fixed;
   bottom: 0;
   left: 0;
+
+  color: white;
 
   background-image: linear-gradient(
     to right,

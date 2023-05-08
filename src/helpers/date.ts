@@ -4,8 +4,6 @@ import "moment/locale/nb";
 export function createTimeLabel(date: string) {
   const dateToFormat = new Date(date);
 
-  console.log("matchWeek:", moment(dateToFormat).week());
-  console.log("thisWeek:", moment(new Date()).week());
   const matchWeek = moment(dateToFormat).week();
   const currentWeek = moment(new Date()).week();
 

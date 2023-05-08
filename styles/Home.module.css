@@ -108,6 +108,8 @@
   bottom: 0;
   left: 0;
   height: 8rem;
+
+  color: white;
 }
 
 .listSection {
@@ -157,6 +159,8 @@
   font-size: 2rem;
   border-radius: 4px;
 
+  color: white;
+
   background-image: linear-gradient(
     to right,
     #ff512f 0%,
@@ -193,6 +197,8 @@
   padding: 1rem;
   background-color: darkorange;
   border-radius: 4px;
+
+  color: white;
 }
 
 .deleteUserButton:hover {

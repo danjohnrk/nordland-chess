@@ -17,7 +17,6 @@ export const Chessboard = (props: IProps) => {
   const [loadingSpinner, setLoadingSpinner] = useState<boolean>(false);
 
   const storeCurrentStanding = () => {
-    console.log(currentStanding);
     fetch(
       `/api/chessboard/edit?json=${JSON.stringify({
         standing: currentStanding,

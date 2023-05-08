@@ -17,7 +17,7 @@
   grid-template-columns: 33.3% 33.3% 33.3%;
   justify-items: center;
 
-  background-color: #212121;
+  background-color: #333333;
 }
 
 @media only screen and (max-width: 3000px) {
@@ -78,7 +78,7 @@
 .whiteSquare {
   border: 1px solid black;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.14);
+  background-color: #404040;
 
   display: flex;
   justify-content: center;
@@ -154,7 +154,7 @@
 .blackSquare {
   border: 1px solid black;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.14);
+  background-color: #212121;
 
   display: flex;
   justify-content: center;

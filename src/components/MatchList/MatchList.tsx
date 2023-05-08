@@ -4,36 +4,12 @@ import { IMatch } from "@/src/interfaces/match";
 import AuthContext from "@/stores/authContext";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 import styles from "./MatchList.module.css";
 
 export const MatchList = () => {
   const { token, retrievingToken } = useContext(AuthContext);
-  const [matches, setMatches] = useState([
-    {
-      time: "string",
-      playerWhite: {
-        netlifyId: "string",
-        name: "string",
-        rating: 0,
-        victories: 0,
-        losses: 0,
-        draws: 0,
-      },
-      playerBlack: {
-        netlifyId: "string",
-        name: "string",
-        rating: 0,
-        victories: 0,
-        losses: 0,
-        draws: 0,
-      },
-      result: "string",
-      playerWhiteCurrentRating: 0,
-      playerWhiteRatingChange: 0,
-      playerBlackCurrentRating: 0,
-      playerBlackRatingChange: 0,
-    },
-  ]);
+  const [matches, setMatches] = useState<IMatch[]>([]);
 
   useEffect(() => {
     if (token === null) {
@@ -48,8 +24,12 @@ export const MatchList = () => {
     });
   }, [token]);
 
-  if (matches === null) {
-    return null;
+  if (retrievingToken || matches === null) {
+    return (
+      <div className={styles.activatingScreen}>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   matches.sort((a, b) => {
@@ -60,6 +40,7 @@ export const MatchList = () => {
     <ul className={styles.list}>
       <li className={styles.listHeader}>
         <span>Spillere</span>
+        <span></span>
         <span>Resultat</span>
         <span className={styles.listHeaderDate}>Dato</span>
       </li>
@@ -71,7 +52,7 @@ export const MatchList = () => {
                 <div>
                   <span>Hvit: </span>
                   <span>{match.playerWhite.name}</span>
-                  <span>{` (${match.playerWhite.rating})`}</span>
+                  <span>{` (${match.playerWhiteCurrentRating})`}</span>
                   {match.result === "white" && (
                     <Image
                       src="/winner.svg"
@@ -81,6 +62,17 @@ export const MatchList = () => {
                       height={8}
                       priority
                     />
+                  )}
+
+                  {match.playerWhiteRatingChange > 0 && (
+                    <span className={styles.positiveRatingChange}>
+                      {match.playerWhiteRatingChange} ↑
+                    </span>
+                  )}
+                  {match.playerWhiteRatingChange < 0 && (
+                    <span className={styles.negativeRatingChange}>
+                      {match.playerWhiteRatingChange} ↓
+                    </span>
                   )}
                 </div>
                 <div>
@@ -96,6 +88,17 @@ export const MatchList = () => {
                       height={8}
                       priority
                     />
+                  )}
+
+                  {match.playerBlackRatingChange > 0 && (
+                    <span className={styles.positiveRatingChange}>
+                      {match.playerBlackRatingChange} ↑
+                    </span>
+                  )}
+                  {match.playerBlackRatingChange < 0 && (
+                    <span className={styles.negativeRatingChange}>
+                      {match.playerBlackRatingChange} ↓
+                    </span>
                   )}
                 </div>
               </div>

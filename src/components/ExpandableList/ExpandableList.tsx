@@ -9,7 +9,6 @@ interface IProps {
 const ExpandableList = (props: IProps) => {
   const { children: list } = props;
   const [expanded, setExpanded] = useState(false);
-  console.log(list);
   return (
     <div>
       <button></button>

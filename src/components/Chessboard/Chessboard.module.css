@@ -39,7 +39,7 @@
 .whiteSquare {
   border: 1px solid black;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.14);
+  background-color: #404040;
 
   display: flex;
   justify-content: center;
@@ -55,7 +55,7 @@
 .blackSquare {
   border: 1px solid black;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.14);
+  background-color: #212121;
 
   display: flex;
   justify-content: center;
@@ -89,8 +89,10 @@
 
   margin-top: 2rem;
   padding: 1rem;
-  background-color: #212121;
+  background-color: #404040;
   border-radius: 4px;
+
+  color: white;
 
   margin: 2rem 1rem;
 }

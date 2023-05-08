@@ -14,6 +14,7 @@ export default function Home() {
 
   const [userIsActive, setUserIsActive] = useState(false);
   const [activating, setActivating] = useState(false);
+  const [loadingSite, setLoadingSite] = useState(true);
 
   useEffect(() => {
     if (token !== null) {
@@ -33,13 +34,17 @@ export default function Home() {
       .catch((err) => console.log(err));
   };
 
-  // if (loadingUser || retrievingToken) {
-  //   return (
-  //     <div className={styles.activatingScreen}>
-  //       <LoadingSpinner />
-  //     </div>
-  //   );
-  // }
+  setTimeout(() => {
+    setLoadingSite(false);
+  }, 750);
+
+  if (loadingSite) {
+    return (
+      <div className={styles.activatingScreen}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <>
