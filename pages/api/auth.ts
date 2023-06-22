@@ -5,7 +5,7 @@ export default async function auth(req: any, res: any) {
     query: { netlifyId },
   } = req;
 
-  const authUrl = `https://nrk-chess-api.onrender.com/auth`;
+  const authUrl = `https://ptu-bodo-chess-api.azurewebsites.net/auth`;
   try {
     const response = await axios.post(
       authUrl,
@@ -24,6 +24,7 @@ export default async function auth(req: any, res: any) {
       data: response.data,
     });
   } catch (error) {
+    console.log(error);
     res.status(200).json({
       data: { token: null, error },
     });

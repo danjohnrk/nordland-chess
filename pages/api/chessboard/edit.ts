@@ -5,7 +5,7 @@ export default async function edit(req: any, res: any) {
     query: { token, standing },
   } = req;
 
-  const chessboardUrl = `https://nrk-chess-api.onrender.com/match`;
+  const chessboardUrl = `https://ptu-bodo-chess-api.azurewebsites.net/match`;
   const response = await axios.post(
     chessboardUrl,
     {

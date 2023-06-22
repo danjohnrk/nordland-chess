@@ -5,7 +5,7 @@ export default async function facts(req: any, res: any) {
     query: { token },
   } = req;
 
-  const factUrl = `https://nrk-chess-api.onrender.com/fun_fact/chess`;
+  const factUrl = `https://ptu-bodo-chess-api.azurewebsites.net/fun_fact/chess`;
   const response = await axios.get(factUrl, {
     headers: {
       "Content-Type": "application/json",

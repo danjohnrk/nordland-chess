@@ -5,7 +5,7 @@ export default async function remove(req: any, res: any) {
     query: { netlifyId, token },
   } = req;
 
-  const userUrl = `https://nrk-chess-api.onrender.com/user?netlifyId=${netlifyId}`;
+  const userUrl = `https://ptu-bodo-chess-api.azurewebsites.net/user?netlifyId=${netlifyId}`;
   const response = await axios.delete(userUrl, {
     headers: {
       "Content-Type": "application/json",

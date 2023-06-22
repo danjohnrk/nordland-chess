@@ -5,7 +5,7 @@ export default async function all(req: any, res: any) {
     query: { token },
   } = req;
 
-  const matchUrl = `https://nrk-chess-api.onrender.com/match/all`;
+  const matchUrl = `https://ptu-bodo-chess-api.azurewebsites.net/match/all`;
   const response = await axios.get(matchUrl, {
     headers: {
       "Content-Type": "application/json",

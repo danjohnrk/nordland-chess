@@ -5,7 +5,7 @@ export default async function all(req: any, res: any) {
     query: { token },
   } = req;
 
-  const usersUrl = `https://nrk-chess-api.onrender.com/user/all`;
+  const usersUrl = `https://ptu-bodo-chess-api.azurewebsites.net/user/all`;
   const response = await axios.get(usersUrl, {
     headers: {
       "Content-Type": "application/json",

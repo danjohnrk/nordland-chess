@@ -5,7 +5,7 @@ export default async function add(req: any, res: any) {
     query: { whitePlayer, blackPlayer, result, token },
   } = req;
 
-  const userUrl = `https://nrk-chess-api.onrender.com/match`;
+  const userUrl = `https://ptu-bodo-chess-api.azurewebsites.net/match`;
   const response = await axios.post(
     userUrl,
     {

@@ -114,7 +114,7 @@ export const MatchRegister = () => {
     ) {
       return;
     }
-    fetch("https://nrk-chess-api.onrender.com/match", {
+    fetch("https://ptu-bodo-chess-api.azurewebsites.net/match", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

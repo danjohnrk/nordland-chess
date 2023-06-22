@@ -5,7 +5,7 @@ export default async function add(req: any, res: any) {
     query: { netlifyId, name },
   } = req;
 
-  const userUrl = `https://nrk-chess-api.onrender.com/user`;
+  const userUrl = `https://ptu-bodo-chess-api.azurewebsites.net/user`;
   const response = await axios.post(
     userUrl,
     {

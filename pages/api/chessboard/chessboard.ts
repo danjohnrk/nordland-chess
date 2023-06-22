@@ -5,7 +5,7 @@ export default async function chessboard(req: any, res: any) {
     query: { token },
   } = req;
 
-  const chessboardUrl = `https://nrk-chess-api.onrender.com/chess_display`;
+  const chessboardUrl = `https://ptu-bodo-chess-api.azurewebsites.net/chess_display`;
   const response = await axios.get(chessboardUrl, {
     headers: {
       "Content-Type": "application/json",
